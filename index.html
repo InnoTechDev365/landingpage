@@ -1,0 +1,2992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexus — The Modern Work OS for High-Performance Teams</title>
+  <meta name="description" content="Nexus brings your projects, data, and team into one beautiful workspace. Plan smarter, ship faster, and never lose context again." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..900;1,14..32,300..900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --violet: #7C3AED;
+      --violet-dark: #5B21B6;
+      --violet-mid: #8B5CF6;
+      --violet-light: #EDE9FE;
+      --violet-xlight: #F5F3FF;
+      --indigo: #4F46E5;
+      --emerald: #059669;
+      --emerald-light: #D1FAE5;
+      --rose: #E11D48;
+      --rose-light: #FFE4E6;
+      --amber: #D97706;
+      --amber-light: #FEF3C7;
+      --sky: #0284C7;
+      --sky-light: #E0F2FE;
+      --gray-50: #F9FAFB;
+      --gray-100: #F3F4F6;
+      --gray-200: #E5E7EB;
+      --gray-300: #D1D5DB;
+      --gray-400: #9CA3AF;
+      --gray-500: #6B7280;
+      --gray-600: #4B5563;
+      --gray-700: #374151;
+      --gray-800: #1F2937;
+      --gray-900: #111827;
+      --white: #ffffff;
+      --shadow-xs: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.10), 0 1px 2px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.05);
+      --shadow-lg: 0 10px 40px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06);
+      --shadow-xl: 0 20px 60px rgba(0,0,0,0.12);
+      --shadow-violet: 0 8px 32px rgba(124,58,237,0.28);
+      --radius-sm: 6px;
+      --radius: 10px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --radius-full: 9999px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--white);
+      color: var(--gray-900);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-size-adjust: 100%;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    /* ═══════════════════════════
+       NAV
+    ═══════════════════════════ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      transition: background .25s, box-shadow .25s, border-color .25s;
+      border-bottom: 1px solid transparent;
+    }
+    nav.scrolled {
+      background: rgba(255,255,255,0.94);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      border-color: var(--gray-200);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 60px;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+    }
+    .logo {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      -webkit-box-flex: 0;
+      -ms-flex: none;
+      flex: none;
+    }
+    .logo-mark {
+      width: 30px; height: 30px;
+      background: -webkit-linear-gradient(315deg, var(--violet), var(--indigo));
+      background: linear-gradient(135deg, var(--violet), var(--indigo));
+      border-radius: var(--radius-sm);
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -webkit-box-flex: 0;
+      -ms-flex: none;
+      flex: none;
+    }
+    .logo-mark svg { width: 17px; height: 17px; }
+    .logo-name {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--gray-900);
+      letter-spacing: -0.5px;
+      white-space: nowrap;
+    }
+    .nav-center {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      gap: 2px;
+    }
+    .nav-center a {
+      text-decoration: none;
+      color: var(--gray-600);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      -webkit-transition: background .15s, color .15s;
+      transition: background .15s, color .15s;
+      white-space: nowrap;
+    }
+    .nav-center a:hover { background: var(--gray-100); color: var(--gray-900); }
+    .nav-right {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      gap: 8px;
+      -webkit-box-flex: 0;
+      -ms-flex: none;
+      flex: none;
+    }
+    .btn-ghost {
+      background: none;
+      border: none;
+      color: var(--gray-600);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 7px 13px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-family: inherit;
+      -webkit-transition: background .15s, color .15s;
+      transition: background .15s, color .15s;
+      text-decoration: none;
+      display: -webkit-inline-box;
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .btn-ghost:hover { background: var(--gray-100); color: var(--gray-900); }
+    .btn {
+      display: -webkit-inline-box;
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      -webkit-transition: background .18s, -webkit-transform .18s, box-shadow .18s;
+      transition: background .18s, transform .18s, box-shadow .18s;
+      letter-spacing: -0.1px;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .btn-primary {
+      background: var(--violet);
+      color: white;
+      box-shadow: var(--shadow-violet);
+    }
+    .btn-primary:hover { background: var(--violet-dark); -webkit-transform: translateY(-1px); transform: translateY(-1px); box-shadow: 0 10px 40px rgba(124,58,237,0.35); }
+    .btn-outline {
+      background: white;
+      color: var(--gray-800);
+      border: 1.5px solid var(--gray-200);
+      box-shadow: var(--shadow-xs);
+    }
+    .btn-outline:hover { border-color: var(--gray-300); box-shadow: var(--shadow-sm); -webkit-transform: translateY(-1px); transform: translateY(-1px); }
+    .btn-lg { padding: 13px 26px; font-size: 15px; border-radius: var(--radius); }
+    .btn-xl { padding: 15px 28px; font-size: 16px; border-radius: var(--radius-md); }
+
+    /* ── Burger ── */
+    .burger {
+      display: none;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 9px;
+      border-radius: var(--radius-sm);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .burger span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--gray-700);
+      border-radius: 2px;
+      -webkit-transition: -webkit-transform .28s ease, opacity .28s ease;
+      transition: transform .28s ease, opacity .28s ease;
+      -webkit-transform-origin: center;
+      transform-origin: center;
+    }
+    .burger.open span:nth-child(1) { -webkit-transform: translateY(7px) rotate(45deg); transform: translateY(7px) rotate(45deg); }
+    .burger.open span:nth-child(2) { opacity: 0; -webkit-transform: scaleX(0); transform: scaleX(0); }
+    .burger.open span:nth-child(3) { -webkit-transform: translateY(-7px) rotate(-45deg); transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── Mobile nav drawer ── */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 60px; left: 0; right: 0;
+      background: white;
+      border-bottom: 1px solid var(--gray-200);
+      padding: 8px 16px 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      z-index: 999;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      gap: 2px;
+      max-height: calc(100vh - 60px);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .mobile-nav.open { display: -webkit-box; display: -ms-flexbox; display: flex; }
+    .mobile-nav-section {
+      padding: 8px 0 4px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      padding-left: 14px;
+      margin-top: 4px;
+    }
+    .mobile-nav a {
+      text-decoration: none;
+      color: var(--gray-700);
+      font-size: 15px;
+      font-weight: 500;
+      padding: 11px 14px;
+      border-radius: var(--radius-sm);
+      -webkit-transition: background .15s;
+      transition: background .15s;
+      display: block;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mobile-nav a:hover, .mobile-nav a:active { background: var(--gray-100); }
+    .mobile-nav a.btn-primary { color: white; background: var(--violet); }
+    .mobile-nav a.btn-primary:hover, .mobile-nav a.btn-primary:active { background: var(--violet-dark); color: white; }
+    .mobile-nav-divider { height: 1px; background: var(--gray-100); margin: 8px 0; }
+    .mobile-nav-actions {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      gap: 8px;
+      padding: 8px 0 4px;
+    }
+    .mobile-nav-actions .btn { justify-content: center; width: 100%; padding: 13px; font-size: 15px; border-radius: var(--radius); }
+
+    /* ── Login Modal ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 2000;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      padding: 20px;
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+    }
+    .modal-overlay.open { display: -webkit-box; display: -ms-flexbox; display: flex; }
+    .modal {
+      background: white;
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.2);
+      overflow: hidden;
+      position: relative;
+      -webkit-animation: modalIn .22s ease;
+      animation: modalIn .22s ease;
+    }
+    @-webkit-keyframes modalIn {
+      from { opacity: 0; -webkit-transform: scale(.95) translateY(8px); transform: scale(.95) translateY(8px); }
+      to   { opacity: 1; -webkit-transform: scale(1) translateY(0); transform: scale(1) translateY(0); }
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(.95) translateY(8px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .modal-header {
+      padding: 28px 28px 20px;
+      border-bottom: 1px solid var(--gray-100);
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: start;
+      -ms-flex-align: start;
+      align-items: flex-start;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .modal-title { font-size: 20px; font-weight: 800; color: var(--gray-900); letter-spacing: -0.5px; }
+    .modal-sub { font-size: 13px; color: var(--gray-500); margin-top: 4px; }
+    .modal-close {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: var(--gray-100);
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1;
+      color: var(--gray-500);
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -webkit-box-flex: 0;
+      -ms-flex: none;
+      flex: none;
+      -webkit-transition: background .15s;
+      transition: background .15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .modal-close:hover { background: var(--gray-200); color: var(--gray-900); }
+    .modal-body { padding: 20px 28px 28px; }
+    .modal-field { margin-bottom: 16px; }
+    .modal-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-700);
+      margin-bottom: 6px;
+    }
+    .modal-input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--gray-900);
+      background: white;
+      outline: none;
+      -webkit-transition: border-color .2s;
+      transition: border-color .2s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .modal-input:focus { border-color: var(--violet); box-shadow: 0 0 0 3px rgba(124,58,237,0.1); }
+    .modal-input::-webkit-input-placeholder { color: var(--gray-400); }
+    .modal-input:-ms-input-placeholder { color: var(--gray-400); }
+    .modal-input::placeholder { color: var(--gray-400); }
+    .modal-submit {
+      width: 100%;
+      background: var(--violet);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      -webkit-transition: background .18s;
+      transition: background .18s;
+      margin-top: 8px;
+    }
+    .modal-submit:hover { background: var(--violet-dark); }
+    .modal-footer-text {
+      text-align: center;
+      font-size: 13px;
+      color: var(--gray-500);
+      margin-top: 16px;
+    }
+    .modal-footer-text a {
+      color: var(--violet);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .modal-footer-text a:hover { text-decoration: underline; }
+    .modal-divider {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      gap: 12px;
+      margin: 18px 0;
+      font-size: 12px;
+      color: var(--gray-400);
+      font-weight: 500;
+    }
+    .modal-divider::before, .modal-divider::after {
+      content: '';
+      -webkit-box-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      height: 1px;
+      background: var(--gray-200);
+    }
+    .modal-oauth {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      gap: 10px;
+    }
+    .modal-oauth-btn {
+      -webkit-box-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      padding: 9px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      background: white;
+      color: var(--gray-700);
+      -webkit-transition: border-color .15s, box-shadow .15s;
+      transition: border-color .15s, box-shadow .15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .modal-oauth-btn:hover { border-color: var(--gray-400); box-shadow: var(--shadow-sm); }
+
+    /* ═══════════════════════════
+       HERO
+    ═══════════════════════════ */
+    .hero {
+      padding: 136px 24px 88px;
+      background: -webkit-radial-gradient(50% -20%, ellipse 80% 60%, rgba(124,58,237,0.12) 0%, transparent 70%),
+                  -webkit-linear-gradient(top, #FAFAFA 0%, white 100%);
+      background: radial-gradient(ellipse 80% 60% at 50% -20%, rgba(124,58,237,0.12) 0%, transparent 70%),
+                  linear-gradient(180deg, #FAFAFA 0%, white 100%);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-noise {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-full);
+      padding: 6px 14px 6px 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-600);
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-xs);
+      cursor: pointer;
+      transition: box-shadow .2s;
+    }
+    .hero-badge:hover { box-shadow: var(--shadow-sm); }
+    .badge-pill {
+      background: linear-gradient(135deg, var(--violet), var(--indigo));
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      letter-spacing: 0.3px;
+    }
+    .hero h1 {
+      font-size: clamp(40px, 7vw, 76px);
+      font-weight: 900;
+      letter-spacing: -3px;
+      line-height: 1.05;
+      color: var(--gray-900);
+      margin-bottom: 22px;
+    }
+    .hero h1 .grad {
+      background: linear-gradient(135deg, var(--violet) 0%, var(--indigo) 50%, var(--sky) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: clamp(16px, 2.5vw, 20px);
+      color: var(--gray-500);
+      max-width: 560px;
+      margin: 0 auto 40px;
+      line-height: 1.75;
+      font-weight: 400;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 56px;
+    }
+    .hero-social {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .social-proof {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--gray-500);
+      font-weight: 500;
+    }
+    .avatars {
+      display: flex;
+      margin-right: 4px;
+    }
+    .avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 2px solid white;
+      margin-left: -8px;
+      background: linear-gradient(135deg, var(--violet-light), var(--violet));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--violet-dark);
+    }
+    .avatar:first-child { margin-left: 0; }
+    .stars { color: #F59E0B; font-size: 14px; letter-spacing: 1px; }
+
+    /* ═══════════════════════════
+       DASHBOARD PREVIEW
+    ═══════════════════════════ */
+    .dashboard-preview {
+      max-width: 1000px;
+      margin: 0 auto 0;
+      padding: 0 28px 80px;
+    }
+    .dashboard-frame {
+      background: white;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--gray-200);
+      box-shadow: var(--shadow-xl), 0 0 0 1px rgba(0,0,0,0.04);
+      overflow: hidden;
+      position: relative;
+    }
+    .frame-bar {
+      background: var(--gray-100);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .frame-dots { display: flex; gap: 6px; }
+    .frame-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .frame-url {
+      flex: 1;
+      background: white;
+      border-radius: var(--radius-sm);
+      padding: 5px 12px;
+      font-size: 12px;
+      color: var(--gray-400);
+      text-align: center;
+      border: 1px solid var(--gray-200);
+    }
+    .frame-body {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      min-height: 340px;
+    }
+    .frame-sidebar {
+      background: var(--gray-900);
+      padding: 20px 0;
+    }
+    .sidebar-logo {
+      padding: 0 16px 16px;
+      font-weight: 800;
+      font-size: 15px;
+      color: white;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 12px;
+    }
+    .sidebar-logo-icon {
+      width: 24px; height: 24px;
+      background: var(--violet);
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+    }
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 16px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      cursor: pointer;
+      transition: background .15s, color .15s;
+      border-radius: 0;
+    }
+    .sidebar-item:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.85); }
+    .sidebar-item.active { background: rgba(124,58,237,0.25); color: white; }
+    .sidebar-icon { font-size: 14px; width: 16px; }
+    .frame-content { padding: 20px; background: var(--gray-50); overflow: hidden; }
+    .fc-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .fc-title { font-size: 15px; font-weight: 700; color: var(--gray-900); }
+    .fc-badge {
+      background: var(--violet-light);
+      color: var(--violet-dark);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: var(--radius-full);
+    }
+    .fc-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 16px; }
+    .fc-card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 14px;
+    }
+    .fc-card-label { font-size: 11px; color: var(--gray-400); font-weight: 500; margin-bottom: 6px; }
+    .fc-card-val { font-size: 22px; font-weight: 800; color: var(--gray-900); letter-spacing: -1px; }
+    .fc-card-change { font-size: 11px; font-weight: 600; margin-top: 4px; }
+    .up { color: var(--emerald); }
+    .down { color: var(--rose); }
+    .fc-chart {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 14px;
+      height: 100px;
+      position: relative;
+      overflow: hidden;
+    }
+    .fc-chart-label { font-size: 11px; color: var(--gray-400); font-weight: 500; margin-bottom: 8px; }
+    .chart-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+      height: 60px;
+    }
+    .chart-bar {
+      flex: 1;
+      border-radius: 3px 3px 0 0;
+      background: var(--violet-light);
+      transition: background .2s;
+    }
+    .chart-bar.active { background: var(--violet); }
+    .chart-bar:hover { background: var(--violet-mid); cursor: pointer; }
+
+    /* ═══════════════════════════
+       LOGOS STRIP
+    ═══════════════════════════ */
+    .logos-strip {
+      padding: 48px 28px;
+      border-top: 1px solid var(--gray-200);
+      border-bottom: 1px solid var(--gray-200);
+      text-align: center;
+    }
+    .logos-label { font-size: 13px; font-weight: 500; color: var(--gray-400); letter-spacing: 0.5px; margin-bottom: 24px; text-transform: uppercase; }
+    .logos-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .logo-item {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--gray-300);
+      letter-spacing: -0.5px;
+      white-space: nowrap;
+      transition: color .2s;
+    }
+    .logo-item:hover { color: var(--gray-500); }
+
+    /* ═══════════════════════════
+       SECTIONS
+    ═══════════════════════════ */
+    .section { padding: 96px 28px; }
+    .section-alt { background: var(--gray-50); }
+    .section-dark { background: var(--gray-900); color: white; }
+
+    .section-header { text-align: center; max-width: 640px; margin: 0 auto 64px; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--violet);
+      margin-bottom: 14px;
+    }
+    .section-header h2 {
+      font-size: clamp(28px, 4.5vw, 46px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.15;
+      color: var(--gray-900);
+      margin-bottom: 16px;
+    }
+    .section-dark .section-header h2 { color: white; }
+    .section-header p { font-size: 17px; color: var(--gray-500); line-height: 1.75; }
+    .section-dark .section-header p { color: var(--gray-400); }
+
+    /* ═══════════════════════════
+       FEATURES ROADMAP
+    ═══════════════════════════ */
+    .roadmap {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    /* Phase header */
+    .roadmap-phase {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+      margin-top: 56px;
+    }
+    .roadmap-phase:first-child { margin-top: 0; }
+    .roadmap-phase-pill {
+      display: -webkit-inline-box;
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+      -webkit-box-flex: 0;
+      -ms-flex: none;
+      flex: none;
+    }
+    .roadmap-phase-pill.live { background: var(--emerald-light); color: #065F46; }
+    .roadmap-phase-pill.progress { background: var(--violet-light); color: var(--violet-dark); }
+    .roadmap-phase-pill.soon { background: var(--gray-100); color: var(--gray-600); }
+    .roadmap-phase-line {
+      -webkit-box-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      height: 1px;
+      background: var(--gray-200);
+    }
+    .roadmap-phase-date {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-400);
+      white-space: nowrap;
+    }
+    /* Cards row */
+    .roadmap-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 0;
+    }
+    .roadmap-card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+      -webkit-transition: -webkit-transform .2s, box-shadow .2s;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .roadmap-card:hover { -webkit-transform: translateY(-3px); transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+    .roadmap-card.progress-card { border-color: var(--violet-light); background: #FDFBFF; }
+    .roadmap-card.soon-card { opacity: .85; }
+    .roadmap-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+    .roadmap-card.live-card::before { background: var(--emerald); }
+    .roadmap-card.progress-card::before { background: -webkit-linear-gradient(left, var(--violet), var(--indigo)); background: linear-gradient(90deg, var(--violet), var(--indigo)); }
+    .roadmap-card.soon-card::before { background: var(--gray-200); }
+    .roadmap-card-icon {
+      width: 44px; height: 44px;
+      border-radius: var(--radius);
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+    .roadmap-card h3 { font-size: 16px; font-weight: 700; color: var(--gray-900); margin-bottom: 8px; letter-spacing: -0.3px; }
+    .roadmap-card p { font-size: 13px; color: var(--gray-500); line-height: 1.7; margin-bottom: 16px; }
+    .roadmap-tag {
+      display: -webkit-inline-box;
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: var(--radius-full);
+      margin-bottom: 12px;
+    }
+    .roadmap-status {
+      display: -webkit-inline-box;
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      margin-top: auto;
+    }
+    .roadmap-status.live { background: var(--emerald-light); color: #065F46; }
+    .roadmap-status.beta { background: var(--violet-light); color: var(--violet-dark); }
+    .roadmap-status.planned { background: var(--gray-100); color: var(--gray-500); }
+    /* mini kanban inside roadmap card */
+    .mini-kanban { display: -webkit-box; display: -ms-flexbox; display: flex; gap: 10px; }
+    .mini-col {
+      -webkit-box-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      background: var(--gray-50);
+      border-radius: var(--radius-sm);
+      padding: 8px;
+    }
+    .mini-col-title { font-size: 10px; font-weight: 700; color: var(--gray-400); letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 6px; }
+    .mini-task {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 5px;
+      padding: 7px 9px;
+      font-size: 11px;
+      color: var(--gray-700);
+      margin-bottom: 5px;
+      font-weight: 500;
+      cursor: pointer;
+      -webkit-transition: box-shadow .15s;
+      transition: box-shadow .15s;
+    }
+    .mini-task:hover { box-shadow: var(--shadow-sm); }
+    .mini-task-tag {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 3px;
+      margin-bottom: 3px;
+    }
+    /* bento aliases kept for sparkline/activity reuse */
+    .bento-visual { margin-top: 16px; border-radius: var(--radius); overflow: hidden; }
+    .bento-icon { width: 44px; height: 44px; border-radius: var(--radius); display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-align: center; -ms-flex-align: center; align-items: center; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; font-size: 20px; margin-bottom: 16px; }
+
+    /* mini kanban */
+    .mini-kanban { display: flex; gap: 10px; }
+    .mini-col {
+      flex: 1;
+      background: var(--gray-50);
+      border-radius: var(--radius-sm);
+      padding: 8px;
+    }
+    .mini-col-title { font-size: 10px; font-weight: 700; color: var(--gray-400); letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 6px; }
+    .mini-task {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 5px;
+      padding: 7px 9px;
+      font-size: 11px;
+      color: var(--gray-700);
+      margin-bottom: 5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: box-shadow .15s;
+    }
+    .mini-task:hover { box-shadow: var(--shadow-sm); }
+    .mini-task-tag {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 3px;
+      margin-bottom: 3px;
+    }
+
+    /* activity feed */
+    .activity-feed { display: flex; flex-direction: column; gap: 10px; }
+    .activity-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px;
+      background: var(--gray-50);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--gray-100);
+    }
+    .activity-avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .activity-text { font-size: 12px; color: var(--gray-600); line-height: 1.5; }
+    .activity-text strong { color: var(--gray-900); }
+    .activity-time { font-size: 10px; color: var(--gray-400); margin-top: 2px; }
+
+    /* sparkline */
+    .sparkline-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .sparkline-row:last-child { border-bottom: none; }
+    .sparkline-label { font-size: 12px; font-weight: 600; color: var(--gray-700); }
+    .sparkline-bar-track {
+      flex: 1;
+      height: 6px;
+      background: var(--gray-100);
+      border-radius: 3px;
+      margin: 0 12px;
+      overflow: hidden;
+    }
+    .sparkline-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: var(--violet);
+    }
+    .sparkline-val { font-size: 12px; font-weight: 700; color: var(--gray-900); width: 32px; text-align: right; }
+
+    /* ═══════════════════════════
+       HOW IT WORKS — CARD STEPS
+    ═══════════════════════════ */
+    .steps-cards {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      -webkit-box-align: start;
+      -ms-flex-align: start;
+      align-items: start;
+    }
+    .step-card {
+      background: white;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 32px 24px 28px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      -webkit-transition: -webkit-transform .2s, box-shadow .2s;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .step-card:hover { -webkit-transform: translateY(-4px); transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .step-circle {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: -webkit-linear-gradient(315deg, var(--violet), var(--indigo));
+      background: linear-gradient(135deg, var(--violet), var(--indigo));
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 900;
+      color: white;
+      margin: 0 auto 20px;
+      box-shadow: var(--shadow-violet);
+    }
+    .step-card h3 { font-size: 18px; font-weight: 700; color: var(--gray-900); margin-bottom: 10px; letter-spacing: -0.3px; }
+    .step-card p { font-size: 14px; color: var(--gray-500); line-height: 1.7; margin-bottom: 16px; }
+    .step-card-visual { text-align: left; border-radius: var(--radius); overflow: hidden; }
+
+    /* ═══════════════════════════
+       DEVICE SHOWCASE
+    ═══════════════════════════ */
+    .devices-section { overflow: hidden; }
+    .devices-wrap {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: flex-end;
+      -ms-flex-align: flex-end;
+      align-items: flex-end;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .device {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+    }
+    .device-label { font-size: 11px; font-weight: 700; color: var(--gray-400); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 14px; }
+    .device-shell { background: #1C1C1E; position: relative; box-shadow: 0 30px 80px -15px rgba(0,0,0,.4); }
+    .device-dot { background: rgba(255,255,255,.2); border-radius: 50%; margin: 0 auto; }
+    .device-bar { width: 36%; height: 3px; background: rgba(255,255,255,.15); border-radius: 2px; margin: 8px auto 0; }
+    .device-screen { background: #F8F9FC; overflow: hidden; }
+    /* Desktop */
+    .device-desktop .device-shell { border-radius: 10px 10px 6px 6px; padding: 10px 10px 6px; }
+    .device-desktop .device-dot { width: 7px; height: 7px; margin-bottom: 7px; }
+    .device-desktop .device-screen { width: 460px; height: 268px; border-radius: 3px; }
+    /* Tablet */
+    .device-tablet .device-shell { border-radius: 14px; padding: 12px 8px 22px; }
+    .device-tablet .device-dot { width: 6px; height: 6px; margin-bottom: 8px; }
+    .device-tablet .device-screen { width: 190px; height: 265px; border-radius: 4px; }
+    /* Mobile */
+    .device-mobile .device-shell { border-radius: 20px; padding: 16px 7px 22px; }
+    .device-mobile .device-dot { width: 5px; height: 5px; margin-bottom: 8px; }
+    .device-mobile .device-screen { width: 92px; height: 195px; border-radius: 4px; }
+
+    /* ═══════════════════════════
+       TESTIMONIALS
+    ═══════════════════════════ */
+    .testimonials-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      columns: 3;
+      column-gap: 20px;
+    }
+    .testimonial {
+      break-inside: avoid;
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 20px;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .testimonial:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+    .test-stars { color: #F59E0B; font-size: 14px; margin-bottom: 12px; letter-spacing: 2px; }
+    .test-text { font-size: 15px; color: var(--gray-700); line-height: 1.75; margin-bottom: 16px; font-style: italic; }
+    .test-author { display: flex; align-items: center; gap: 10px; }
+    .test-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+    }
+    .test-name { font-size: 13px; font-weight: 700; color: var(--gray-900); }
+    .test-role { font-size: 12px; color: var(--gray-400); }
+
+    /* ═══════════════════════════
+       PRICING
+    ═══════════════════════════ */
+    .pricing-toggle-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 48px;
+    }
+    .pricing-toggle-label { font-size: 14px; font-weight: 500; color: var(--gray-600); }
+    .toggle {
+      width: 48px; height: 26px;
+      background: var(--violet);
+      border-radius: 13px;
+      position: relative;
+      cursor: pointer;
+      border: none;
+      transition: background .2s;
+    }
+    .toggle-knob {
+      position: absolute;
+      width: 20px; height: 20px;
+      background: white;
+      border-radius: 50%;
+      top: 3px; left: 3px;
+      transition: left .2s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+    .toggle.yearly .toggle-knob { left: 25px; }
+    .save-badge {
+      background: var(--emerald-light);
+      color: var(--emerald);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+    }
+    .pricing-grid {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      -webkit-box-align: start;
+      -ms-flex-align: start;
+      align-items: start;
+    }
+    .pricing-card {
+      background: white;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      -webkit-transition: -webkit-transform .2s, box-shadow .2s;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .pricing-card.popular {
+      border-color: var(--violet);
+      box-shadow: 0 0 0 4px var(--violet-light), var(--shadow-lg);
+      -webkit-transform: scale(1.03);
+      transform: scale(1.03);
+    }
+    .pricing-card:hover:not(.popular) { -webkit-transform: translateY(-4px); transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .popular-badge {
+      background: var(--violet);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+    .plan-name { font-size: 14px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .plan-price {
+      font-size: 48px;
+      font-weight: 900;
+      color: var(--gray-900);
+      letter-spacing: -2px;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .plan-price sup { font-size: 22px; letter-spacing: 0; font-weight: 700; vertical-align: super; }
+    .plan-price .period { font-size: 14px; color: var(--gray-400); font-weight: 500; letter-spacing: 0; }
+    .plan-desc { font-size: 14px; color: var(--gray-500); margin-bottom: 24px; line-height: 1.6; }
+    .plan-divider { height: 1px; background: var(--gray-200); margin-bottom: 24px; }
+    .plan-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .plan-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--gray-700);
+    }
+    .check { color: var(--emerald); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .plan-cta { width: 100%; }
+
+    /* ═══════════════════════════
+       GOOGLE FORMS
+    ═══════════════════════════ */
+    .gform-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .gform {
+      background: white;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 2px 0 0 var(--violet), var(--shadow-lg);
+      overflow: hidden;
+    }
+    .gform-header {
+      background: linear-gradient(135deg, var(--violet), var(--indigo));
+      padding: 32px;
+      color: white;
+    }
+    .gform-header h2 { font-size: 22px; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.5px; }
+    .gform-header p { font-size: 13px; opacity: 0.8; line-height: 1.6; }
+    .gform-required-note {
+      font-size: 12px;
+      color: var(--gray-500);
+      padding: 10px 32px;
+      background: var(--gray-50);
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .gform-required-note em { color: var(--rose); font-style: normal; }
+    .gform-body {}
+    .gform-q {
+      padding: 22px 32px;
+      border-bottom: 1px solid var(--gray-100);
+      transition: background .12s;
+    }
+    .gform-q:hover { background: #FAFAFA; }
+    .gform-q:last-of-type { border-bottom: none; }
+    .gform-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-800);
+      margin-bottom: 10px;
+    }
+    .gform-req { color: var(--rose); }
+    .gf-input {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid var(--gray-300);
+      padding: 7px 0;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--gray-900);
+      background: transparent;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .gf-input:focus { border-bottom: 2px solid var(--violet); }
+    .gf-input::placeholder { color: var(--gray-300); }
+    .gf-textarea {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid var(--gray-300);
+      padding: 7px 0;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--gray-900);
+      background: transparent;
+      outline: none;
+      resize: vertical;
+      min-height: 72px;
+      transition: border-color .2s;
+    }
+    .gf-textarea:focus { border-bottom: 2px solid var(--violet); }
+    .gf-select {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid var(--gray-300);
+      padding: 7px 0;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--gray-900);
+      background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 4px center;
+      outline: none;
+      appearance: none;
+      cursor: pointer;
+      transition: border-color .2s;
+    }
+    .gf-select:focus { border-bottom: 2px solid var(--violet); }
+    .gf-radio-group, .gf-check-group { display: flex; flex-direction: column; gap: 2px; }
+    .gf-radio-item, .gf-check-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 10px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--gray-700);
+      transition: background .12s;
+    }
+    .gf-radio-item:hover, .gf-check-item:hover { background: var(--gray-100); }
+    .gf-radio-item input, .gf-check-item input { accent-color: var(--violet); width: 16px; height: 16px; cursor: pointer; }
+    .gf-scale { display: flex; gap: 10px; align-items: flex-start; }
+    .gf-scale-item { display: flex; flex-direction: column; align-items: center; gap: 5px; font-size: 12px; color: var(--gray-500); font-weight: 500; }
+    .gf-scale-item input { accent-color: var(--violet); cursor: pointer; }
+    .gf-scale-ends { display: flex; justify-content: space-between; font-size: 11px; color: var(--gray-400); margin-top: 2px; }
+    .gf-error { font-size: 12px; color: var(--rose); margin-top: 5px; display: none; }
+    .gform-q.err .gf-error { display: block; }
+    .gform-q.err .gf-input,
+    .gform-q.err .gf-textarea,
+    .gform-q.err .gf-select { border-bottom-color: var(--rose); }
+    .gform-footer {
+      padding: 22px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      border-top: 1px solid var(--gray-200);
+      background: var(--gray-50);
+    }
+    .btn-gsubmit {
+      background: var(--violet);
+      color: white;
+      border: none;
+      padding: 11px 24px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background .18s;
+      letter-spacing: 0.2px;
+    }
+    .btn-gsubmit:hover { background: var(--violet-dark); }
+    .btn-greset {
+      background: none;
+      color: var(--violet);
+      border: none;
+      padding: 11px 14px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      transition: background .15s;
+    }
+    .btn-greset:hover { background: var(--violet-xlight); }
+    .gform-success {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 64px 32px;
+      gap: 14px;
+    }
+    .success-ring {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: var(--emerald-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+    }
+    .gform-success h3 { font-size: 22px; font-weight: 800; color: var(--gray-900); letter-spacing: -0.5px; }
+    .gform-success p { font-size: 14px; color: var(--gray-500); line-height: 1.7; }
+
+    /* ═══════════════════════════
+       FAQ
+    ═══════════════════════════ */
+    .faq-grid { max-width: 780px; margin: 0 auto; }
+    .faq-item { border-bottom: 1px solid var(--gray-200); }
+    .faq-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gray-900);
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      gap: 16px;
+      font-family: inherit;
+    }
+    .faq-icon-wrap {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--gray-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background .2s, transform .3s;
+      font-size: 16px;
+      color: var(--gray-500);
+    }
+    .faq-item.open .faq-icon-wrap { background: var(--violet-light); color: var(--violet); transform: rotate(45deg); }
+    .faq-ans {
+      max-height: 0;
+      overflow: hidden;
+      font-size: 15px;
+      color: var(--gray-500);
+      line-height: 1.8;
+      transition: max-height .3s ease, padding .3s;
+      padding-bottom: 0;
+    }
+    .faq-item.open .faq-ans { max-height: 300px; padding-bottom: 20px; }
+
+    /* ═══════════════════════════
+       CTA
+    ═══════════════════════════ */
+    .cta-section {
+      padding: 100px 28px;
+      background: linear-gradient(135deg, var(--violet) 0%, var(--indigo) 50%, var(--sky) 100%);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -200px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+    }
+    .cta-section h2 { font-size: clamp(32px, 5vw, 56px); font-weight: 900; color: white; letter-spacing: -2px; margin-bottom: 16px; position: relative; }
+    .cta-section p { font-size: 18px; color: rgba(255,255,255,0.75); max-width: 500px; margin: 0 auto 40px; line-height: 1.7; position: relative; }
+    .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; }
+    .btn-white-solid {
+      background: white;
+      color: var(--violet-dark);
+      font-weight: 700;
+    }
+    .btn-white-solid:hover { background: var(--violet-xlight); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .btn-white-outline {
+      background: transparent;
+      color: white;
+      border: 2px solid rgba(255,255,255,0.4);
+    }
+    .btn-white-outline:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.7); transform: translateY(-1px); }
+
+    /* ═══════════════════════════
+       FOOTER
+    ═══════════════════════════ */
+    footer { background: var(--gray-900); padding: 64px 28px 32px; }
+    .footer-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2.2fr repeat(4, 1fr);
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+    .footer-brand .logo-name { color: white; font-size: 18px; }
+    .footer-brand p { font-size: 13px; color: var(--gray-500); margin: 14px 0 20px; line-height: 1.8; max-width: 240px; }
+    .socials { display: flex; gap: 10px; }
+    .social-btn {
+      width: 34px; height: 34px;
+      border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--gray-400);
+      font-size: 14px;
+      transition: background .2s, color .2s;
+    }
+    .social-btn:hover { background: rgba(255,255,255,0.15); color: white; }
+    .footer-col h4 { font-size: 12px; font-weight: 700; color: white; margin-bottom: 16px; letter-spacing: 0.8px; text-transform: uppercase; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .footer-col ul li a { text-decoration: none; color: var(--gray-500); font-size: 13px; transition: color .15s; }
+    .footer-col ul li a:hover { color: white; }
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 0 auto;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12px;
+      color: var(--gray-600);
+    }
+    .footer-bottom a { color: var(--gray-500); text-decoration: none; }
+    .footer-bottom a:hover { color: white; }
+
+    /* ═══════════════════════════
+       TOAST
+    ═══════════════════════════ */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--gray-900);
+      color: white;
+      padding: 12px 22px;
+      border-radius: var(--radius-full);
+      font-size: 14px;
+      font-weight: 500;
+      box-shadow: var(--shadow-xl);
+      z-index: 9999;
+      transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* ═══════════════════════════
+       ANIMATIONS
+    ═══════════════════════════ */
+    .fade-up {
+      opacity: 0;
+      -webkit-transform: translateY(28px);
+      transform: translateY(28px);
+      -webkit-transition: opacity .65s ease, -webkit-transform .65s ease;
+      transition: opacity .65s ease, transform .65s ease;
+    }
+    .fade-up.v { opacity: 1; -webkit-transform: none; transform: none; }
+    .fade-up:nth-child(2) { -webkit-transition-delay: .1s; transition-delay: .1s; }
+    .fade-up:nth-child(3) { -webkit-transition-delay: .2s; transition-delay: .2s; }
+    .fade-up:nth-child(4) { -webkit-transition-delay: .3s; transition-delay: .3s; }
+
+    /* ═══════════════════════════
+       RESPONSIVE
+    ═══════════════════════════ */
+
+    /* Tablet landscape */
+    @media (max-width: 1024px) {
+      .roadmap-row { grid-template-columns: repeat(2, 1fr); }
+      .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+      .pricing-card.popular { -webkit-transform: none; transform: none; box-shadow: 0 0 0 3px var(--violet-light), var(--shadow-md); }
+      .testimonials-grid { -webkit-column-count: 2; column-count: 2; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+
+    /* Tablet portrait → show burger, hide desktop nav */
+    @media (max-width: 820px) {
+      .nav-center { display: none; }
+      .nav-right .btn-ghost { display: none; }
+      .burger { display: -webkit-box; display: -ms-flexbox; display: flex; }
+      .section { padding: 72px 20px; }
+      .hero { padding: 112px 20px 72px; }
+      .roadmap-row { grid-template-columns: 1fr; }
+      .roadmap-phase { gap: 10px; }
+      .frame-body { grid-template-columns: 1fr; }
+      .frame-sidebar { display: none; }
+      .fc-cards { grid-template-columns: repeat(2,1fr); }
+      .steps-cards { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+      .device-tablet { display: none; }
+      .pricing-grid { grid-template-columns: repeat(2, 1fr); max-width: 600px; }
+      .pricing-card.popular { -webkit-transform: none; transform: none; box-shadow: 0 0 0 3px var(--violet-light), var(--shadow-md); }
+      .testimonials-grid { -webkit-column-count: 1; column-count: 1; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+      .gform-header, .gform-footer, .gform-q { padding-left: 20px; padding-right: 20px; }
+      .gform-required-note { padding-left: 20px; padding-right: 20px; }
+      .hero-actions .btn-xl { padding: 14px 22px; font-size: 15px; }
+    }
+
+    /* Large phone */
+    @media (max-width: 540px) {
+      .nav-inner { padding: 0 16px; }
+      .hero { padding: 100px 16px 64px; }
+      .section { padding: 60px 16px; }
+      .hero h1 { letter-spacing: -2px; }
+      .hero-social { -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column; gap: 10px; }
+      .fc-cards { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+      .footer-bottom { -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column; text-align: center; gap: 10px; }
+      .cta-section { padding: 72px 16px; }
+      .cta-section h2 { letter-spacing: -1px; }
+      .cta-section p { font-size: 16px; }
+      .hero-actions { gap: 10px; }
+      .dashboard-preview { padding: 0 16px 60px; }
+      .logos-row { gap: 24px; }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
+      .steps-cards { grid-template-columns: 1fr; max-width: 380px; }
+      .device-desktop { display: none; }
+      .device-tablet { display: -webkit-box !important; display: -ms-flexbox !important; display: flex !important; }
+      .gform-header, .gform-footer, .gform-q { padding-left: 16px; padding-right: 16px; }
+      .gform-required-note { padding-left: 16px; padding-right: 16px; }
+      .modal-header, .modal-body { padding-left: 20px; padding-right: 20px; }
+    }
+
+    /* Small phone (≤400px) */
+    @media (max-width: 400px) {
+      .logo-name { font-size: 16px; }
+      .hero h1 { font-size: 32px; letter-spacing: -1.5px; }
+      .hero-sub { font-size: 15px; }
+      .hero-actions { -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column; -webkit-box-align: stretch; -ms-flex-align: stretch; align-items: stretch; }
+      .hero-actions .btn { width: 100%; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; padding: 14px 20px; }
+      .social-proof { font-size: 12px; }
+      .step-circle { width: 48px; height: 48px; font-size: 18px; }
+      .section-header h2 { letter-spacing: -0.8px; }
+      .testimonial { padding: 18px; }
+      .faq-btn { font-size: 14px; }
+      .logos-row { gap: 16px; }
+      .logo-item { font-size: 14px; }
+    }
+
+    /* Tiny phones (≤320px) */
+    @media (max-width: 320px) {
+      .nav-inner { height: 54px; padding: 0 12px; }
+      .mobile-nav { top: 54px; max-height: calc(100vh - 54px); }
+      .hero { padding: 88px 12px 56px; }
+      .section { padding: 48px 12px; }
+      .btn-xl { padding: 12px 18px; font-size: 14px; }
+      .gform-header h2 { font-size: 18px; }
+      .modal { border-radius: var(--radius-md); }
+    }
+
+    /* Touch devices: remove hover transforms to prevent sticky hover states */
+    @media (hover: none) {
+      .btn-primary:hover, .btn-outline:hover,
+      .btn-white-solid:hover, .btn-white-outline:hover {
+        -webkit-transform: none;
+        transform: none;
+      }
+      .roadmap-card:hover, .testimonial:hover, .news-card:hover, .feature-card:hover {
+        -webkit-transform: none;
+        transform: none;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body id="top">
+
+  <!-- ═══════ NAV ═══════ -->
+  <nav id="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="#top" class="logo" aria-label="Nexus home">
+        <div class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 18 18" fill="none" aria-hidden="true">
+            <path d="M9 2L14 5.5V12.5L9 16L4 12.5V5.5L9 2Z" fill="white" fill-opacity="0.9"/>
+            <circle cx="9" cy="9" r="2.5" fill="white"/>
+          </svg>
+        </div>
+        <span class="logo-name">Nexus</span>
+      </a>
+
+      <div class="nav-center" role="list">
+        <a href="#features" role="listitem">Features</a>
+        <a href="#pricing" role="listitem">Pricing</a>
+        <a href="#faq" role="listitem">FAQ</a>
+      </div>
+
+      <div class="nav-right">
+        <button class="btn-ghost" id="loginBtn" type="button" aria-haspopup="dialog">Log in</button>
+        <a href="#demo" class="btn btn-primary">Get started free</a>
+      </div>
+
+      <button class="burger" id="burgerBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-nav" id="mobileNav" role="dialog" aria-label="Mobile navigation" aria-hidden="true">
+    <div class="mobile-nav-section">Navigate</div>
+    <a href="#features" id="mn-features">Features</a>
+    <a href="#how" id="mn-how">How it works</a>
+    <a href="#pricing" id="mn-pricing">Pricing</a>
+    <a href="#testimonials" id="mn-reviews">Reviews</a>
+    <a href="#faq" id="mn-faq">FAQ</a>
+    <div class="mobile-nav-divider"></div>
+    <div class="mobile-nav-actions">
+      <button class="btn btn-outline" id="mobileLoginBtn" type="button">Log in</button>
+      <a href="#demo" id="mn-cta" class="btn btn-primary">Get started free →</a>
+    </div>
+  </div>
+
+  <!-- ═══════ HERO ═══════ -->
+  <section class="hero">
+    <div class="hero-noise"></div>
+    <div class="hero-inner">
+      <div class="hero-badge" onclick="showToast('🎉 Nexus 3.0 is now live!')">
+        <span class="badge-pill">NEW</span>
+        Nexus 3.0 just launched — AI-powered workflows
+      </div>
+      <h1>The Work OS<br />teams <span class="grad">actually love</span></h1>
+      <p class="hero-sub">Plan projects, track progress, and collaborate in real-time — all in one place. From solo makers to enterprise teams of 10,000+.</p>
+      <div class="hero-actions">
+        <a href="#demo" class="btn btn-primary btn-xl">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          Start for free
+        </a>
+        <a href="#features" class="btn btn-outline btn-xl">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          Watch demo
+        </a>
+      </div>
+      <div class="hero-social">
+        <div class="social-proof">
+          <div class="avatars">
+            <div class="avatar">A</div>
+            <div class="avatar" style="background:linear-gradient(135deg,#D1FAE5,#059669);color:#065F46;">B</div>
+            <div class="avatar" style="background:linear-gradient(135deg,#FEE2E2,#E11D48);color:#9F1239;">C</div>
+            <div class="avatar" style="background:linear-gradient(135deg,#FEF3C7,#D97706);color:#92400E;">D</div>
+          </div>
+          <span>Trusted by <strong>50,000+</strong> teams worldwide</span>
+        </div>
+        <div class="social-proof">
+          <span class="stars">★★★★★</span>
+          <span><strong>4.9/5</strong> from 3,200+ reviews</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ DASHBOARD PREVIEW ═══════ -->
+  <div class="dashboard-preview">
+    <div class="dashboard-frame">
+      <div class="frame-bar">
+        <div class="frame-dots">
+          <div class="frame-dot" style="background:#FF5F57;"></div>
+          <div class="frame-dot" style="background:#FFBD2E;"></div>
+          <div class="frame-dot" style="background:#28C840;"></div>
+        </div>
+        <div class="frame-url">app.nexus.io/workspace/alpha-team</div>
+      </div>
+      <div class="frame-body">
+        <div class="frame-sidebar">
+          <div class="sidebar-logo">
+            <div class="sidebar-logo-icon">⚡</div>
+            Alpha Team
+          </div>
+          <div class="sidebar-item active"><span class="sidebar-icon">📊</span> Dashboard</div>
+          <div class="sidebar-item"><span class="sidebar-icon">✅</span> My Tasks</div>
+          <div class="sidebar-item"><span class="sidebar-icon">📁</span> Projects</div>
+          <div class="sidebar-item"><span class="sidebar-icon">📅</span> Timeline</div>
+          <div class="sidebar-item"><span class="sidebar-icon">💬</span> Messages</div>
+          <div class="sidebar-item"><span class="sidebar-icon">📈</span> Reports</div>
+          <div class="sidebar-item"><span class="sidebar-icon">⚙️</span> Settings</div>
+        </div>
+        <div class="frame-content">
+          <div class="fc-header">
+            <span class="fc-title">Team Overview — May 2026</span>
+            <span class="fc-badge">↑ 18% this month</span>
+          </div>
+          <div class="fc-cards">
+            <div class="fc-card">
+              <div class="fc-card-label">TASKS DONE</div>
+              <div class="fc-card-val" id="cnt1">0</div>
+              <div class="fc-card-change up">↑ 12 this week</div>
+            </div>
+            <div class="fc-card">
+              <div class="fc-card-label">IN PROGRESS</div>
+              <div class="fc-card-val" id="cnt2">0</div>
+              <div class="fc-card-change" style="color:var(--amber);">⬡ 3 due soon</div>
+            </div>
+            <div class="fc-card">
+              <div class="fc-card-label">VELOCITY</div>
+              <div class="fc-card-val" id="cnt3">0</div>
+              <div class="fc-card-change up">↑ 4% vs last sprint</div>
+            </div>
+          </div>
+          <div class="fc-chart">
+            <div class="fc-chart-label">SPRINT PROGRESS (pts)</div>
+            <div class="chart-bars" id="chartBars"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ LOGOS ═══════ -->
+  <div class="logos-strip">
+    <div class="logos-label">Trusted by teams at</div>
+    <div class="logos-row">
+      <div class="logo-item">Stripe</div>
+      <div class="logo-item">Figma</div>
+      <div class="logo-item">Notion</div>
+      <div class="logo-item">Vercel</div>
+      <div class="logo-item">Linear</div>
+      <div class="logo-item">Loom</div>
+      <div class="logo-item">Pitch</div>
+    </div>
+  </div>
+
+  <!-- ═══════ DEVICE SHOWCASE ═══════ -->
+  <section class="section devices-section" id="responsive">
+    <div class="section-header fade-up">
+      <span class="eyebrow">📱 Any device</span>
+      <h2>Beautiful on every screen</h2>
+      <p>Nexus adapts seamlessly to desktop, tablet, and mobile — same power, experience tailored for your device.</p>
+    </div>
+    <div class="devices-wrap fade-up">
+
+      <!-- Desktop -->
+      <div class="device device-desktop">
+        <div class="device-shell">
+          <div class="device-dot"></div>
+          <div class="device-screen">
+            <div style="background:#1E1B4B;height:26px;display:flex;align-items:center;padding:0 10px;gap:8px;">
+              <div style="width:8px;height:8px;border-radius:50%;background:var(--violet);flex-shrink:0;"></div>
+              <div style="font-size:10px;color:white;font-weight:700;letter-spacing:1px;">NEXUS</div>
+              <div style="flex:1;background:rgba(255,255,255,.08);border-radius:3px;height:14px;margin-left:8px;"></div>
+              <div style="width:22px;height:22px;border-radius:50%;background:var(--violet);display:flex;align-items:center;justify-content:center;font-size:8px;color:white;font-weight:700;flex-shrink:0;">A</div>
+            </div>
+            <div style="display:flex;height:242px;">
+              <div style="width:80px;background:#F3F4F6;border-right:1px solid #E5E7EB;padding:10px 6px;display:flex;flex-direction:column;gap:6px;flex-shrink:0;">
+                <div style="background:var(--violet-light);border-radius:4px;padding:5px 6px;font-size:8px;font-weight:700;color:var(--violet);">📋 Tasks</div>
+                <div style="padding:5px 6px;font-size:8px;color:var(--gray-500);">📊 Reports</div>
+                <div style="padding:5px 6px;font-size:8px;color:var(--gray-500);">⚡ Automations</div>
+                <div style="padding:5px 6px;font-size:8px;color:var(--gray-500);">👥 Members</div>
+                <div style="padding:5px 6px;font-size:8px;color:var(--gray-500);margin-top:auto;">⚙️ Settings</div>
+              </div>
+              <div style="flex:1;padding:12px;overflow:hidden;">
+                <div style="font-size:11px;font-weight:700;color:var(--gray-900);margin-bottom:10px;">Sprint 14 — Active</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
+                  <div style="background:#F9FAFB;border-radius:5px;padding:8px;">
+                    <div style="font-size:7px;font-weight:700;color:var(--gray-500);margin-bottom:5px;text-transform:uppercase;">To Do</div>
+                    <div style="background:white;border:1px solid #E5E7EB;border-radius:3px;padding:5px;margin-bottom:3px;font-size:7px;color:var(--gray-700);">Brand refresh</div>
+                    <div style="background:white;border:1px solid #E5E7EB;border-radius:3px;padding:5px;font-size:7px;color:var(--gray-700);">API auth v2</div>
+                  </div>
+                  <div style="background:#F9FAFB;border-radius:5px;padding:8px;">
+                    <div style="font-size:7px;font-weight:700;color:var(--gray-500);margin-bottom:5px;text-transform:uppercase;">In Progress</div>
+                    <div style="background:white;border:1.5px solid var(--violet);border-radius:3px;padding:5px;font-size:7px;color:var(--violet);">SEO audit</div>
+                  </div>
+                  <div style="background:#F9FAFB;border-radius:5px;padding:8px;">
+                    <div style="font-size:7px;font-weight:700;color:var(--gray-500);margin-bottom:5px;text-transform:uppercase;">Done</div>
+                    <div style="background:white;border:1px solid #E5E7EB;border-radius:3px;padding:5px;font-size:7px;color:var(--gray-400);">v3.0 launch ✓</div>
+                  </div>
+                </div>
+                <div style="display:flex;gap:8px;margin-top:10px;">
+                  <div style="background:var(--violet-light);border-radius:5px;padding:8px 10px;flex:1;text-align:center;">
+                    <div style="font-size:14px;font-weight:900;color:var(--violet);">94%</div>
+                    <div style="font-size:7px;color:var(--violet);font-weight:600;">On-time</div>
+                  </div>
+                  <div style="background:var(--emerald-light);border-radius:5px;padding:8px 10px;flex:1;text-align:center;">
+                    <div style="font-size:14px;font-weight:900;color:var(--emerald);">3x</div>
+                    <div style="font-size:7px;color:var(--emerald);font-weight:600;">Velocity</div>
+                  </div>
+                  <div style="background:#FEF3C7;border-radius:5px;padding:8px 10px;flex:1;text-align:center;">
+                    <div style="font-size:14px;font-weight:900;color:#92400E;">12</div>
+                    <div style="font-size:7px;color:#92400E;font-weight:600;">Active</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="device-label">Desktop</div>
+      </div>
+
+      <!-- Tablet -->
+      <div class="device device-tablet">
+        <div class="device-shell">
+          <div class="device-dot"></div>
+          <div class="device-screen">
+            <div style="background:#1E1B4B;height:22px;display:flex;align-items:center;justify-content:space-between;padding:0 8px;">
+              <div style="font-size:8px;color:white;font-weight:700;letter-spacing:1px;">NEXUS</div>
+              <div style="width:18px;height:18px;border-radius:50%;background:var(--violet);font-size:7px;color:white;font-weight:700;display:flex;align-items:center;justify-content:center;">A</div>
+            </div>
+            <div style="padding:10px;display:flex;flex-direction:column;gap:6px;height:243px;overflow:hidden;">
+              <div style="font-size:10px;font-weight:700;color:var(--gray-900);">Sprint 14</div>
+              <div style="background:white;border:1px solid #E5E7EB;border-left:3px solid var(--violet);border-radius:5px;padding:7px 8px;">
+                <div style="font-size:8px;font-weight:700;color:var(--violet);margin-bottom:2px;">SEO audit</div>
+                <div style="font-size:7px;color:var(--gray-500);">In Progress · Due Fri</div>
+              </div>
+              <div style="background:white;border:1px solid #E5E7EB;border-radius:5px;padding:7px 8px;">
+                <div style="font-size:8px;font-weight:700;color:var(--gray-700);margin-bottom:2px;">Brand refresh</div>
+                <div style="font-size:7px;color:var(--gray-500);">To Do · Marcus</div>
+              </div>
+              <div style="background:white;border:1px solid #E5E7EB;border-radius:5px;padding:7px 8px;">
+                <div style="font-size:8px;font-weight:700;color:var(--gray-700);margin-bottom:2px;">API auth v2</div>
+                <div style="font-size:7px;color:var(--gray-500);">To Do · Sarah</div>
+              </div>
+              <div style="display:flex;gap:6px;margin-top:2px;">
+                <div style="flex:1;background:var(--emerald-light);border-radius:5px;padding:7px;text-align:center;">
+                  <div style="font-size:12px;font-weight:900;color:var(--emerald);">94%</div>
+                  <div style="font-size:7px;color:var(--emerald);font-weight:600;">On-time</div>
+                </div>
+                <div style="flex:1;background:var(--violet-light);border-radius:5px;padding:7px;text-align:center;">
+                  <div style="font-size:12px;font-weight:900;color:var(--violet);">3x</div>
+                  <div style="font-size:7px;color:var(--violet);font-weight:600;">Velocity</div>
+                </div>
+              </div>
+            </div>
+            <div style="background:#F3F4F6;border-top:1px solid #E5E7EB;height:30px;display:flex;align-items:center;justify-content:space-around;padding:0 14px;">
+              <div style="font-size:10px;color:var(--violet);">📋</div>
+              <div style="font-size:10px;color:var(--gray-400);">📊</div>
+              <div style="font-size:10px;color:var(--gray-400);">⚡</div>
+              <div style="font-size:10px;color:var(--gray-400);">👥</div>
+            </div>
+          </div>
+          <div class="device-bar"></div>
+        </div>
+        <div class="device-label">Tablet</div>
+      </div>
+
+      <!-- Mobile -->
+      <div class="device device-mobile">
+        <div class="device-shell">
+          <div class="device-dot"></div>
+          <div class="device-screen">
+            <div style="background:#1E1B4B;height:18px;display:flex;align-items:center;justify-content:center;">
+              <div style="font-size:7px;color:white;font-weight:700;letter-spacing:1px;">NEXUS</div>
+            </div>
+            <div style="padding:7px;display:flex;flex-direction:column;gap:5px;height:149px;overflow:hidden;">
+              <div style="font-size:8px;font-weight:700;color:var(--gray-900);">My tasks</div>
+              <div style="background:white;border:1px solid #E5E7EB;border-left:3px solid var(--violet);border-radius:4px;padding:5px;">
+                <div style="font-size:7px;font-weight:700;color:var(--gray-800);">SEO audit</div>
+                <div style="font-size:6px;color:var(--gray-400);">Due today</div>
+              </div>
+              <div style="background:white;border:1px solid #E5E7EB;border-left:3px solid var(--amber);border-radius:4px;padding:5px;">
+                <div style="font-size:7px;font-weight:700;color:var(--gray-800);">Brand refresh</div>
+                <div style="font-size:6px;color:var(--gray-400);">Due Fri</div>
+              </div>
+              <div style="background:white;border:1px solid #E5E7EB;border-left:3px solid var(--emerald);border-radius:4px;padding:5px;">
+                <div style="font-size:7px;font-weight:700;color:var(--gray-800);">v3.0 launch ✓</div>
+                <div style="font-size:6px;color:var(--emerald);">Done</div>
+              </div>
+            </div>
+            <div style="background:#F3F4F6;border-top:1px solid #E5E7EB;height:28px;display:flex;align-items:center;justify-content:space-around;">
+              <div style="font-size:9px;color:var(--violet);">📋</div>
+              <div style="font-size:9px;color:var(--gray-400);">📊</div>
+              <div style="font-size:9px;color:var(--gray-400);">⚡</div>
+            </div>
+          </div>
+          <div class="device-bar"></div>
+        </div>
+        <div class="device-label">Mobile</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════ FEATURES ═══════ -->
+  <section class="section" id="features">
+    <div class="section-header fade-up">
+      <span class="eyebrow">⚡ Features</span>
+      <h2>Everything your team needs, nothing it doesn't</h2>
+      <p>Nexus replaces 5 different tools — project management, docs, chat, analytics, and automation — in one focused workspace.</p>
+    </div>
+    <div class="roadmap">
+
+      <!-- ── Phase 1: Live ── -->
+      <div class="roadmap-phase fade-up">
+        <div class="roadmap-phase-pill live">✅ Now — Live</div>
+        <div class="roadmap-phase-line"></div>
+        <div class="roadmap-phase-date">Q1 – Q2 2026</div>
+      </div>
+      <div class="roadmap-row fade-up">
+        <div class="roadmap-card live-card">
+          <div class="roadmap-card-icon" style="background:var(--violet-light);">📋</div>
+          <span class="roadmap-tag" style="background:var(--violet-light);color:var(--violet);">Tasks</span>
+          <h3>Kanban, List, Calendar — your choice</h3>
+          <p>Switch views instantly. Every task has subtasks, assignees, due dates, and custom fields.</p>
+          <div class="bento-visual">
+            <div class="mini-kanban">
+              <div class="mini-col">
+                <div class="mini-col-title">To Do</div>
+                <div class="mini-task"><div class="mini-task-tag" style="background:#FEF3C7;color:#92400E;">Design</div><br/>Brand refresh</div>
+                <div class="mini-task"><div class="mini-task-tag" style="background:var(--violet-light);color:var(--violet-dark);">Dev</div><br/>API auth</div>
+              </div>
+              <div class="mini-col">
+                <div class="mini-col-title">In Progress</div>
+                <div class="mini-task"><div class="mini-task-tag" style="background:#DBEAFE;color:#1E40AF;">Growth</div><br/>SEO audit</div>
+              </div>
+              <div class="mini-col">
+                <div class="mini-col-title">Done</div>
+                <div class="mini-task" style="opacity:.6;"><div class="mini-task-tag" style="background:var(--emerald-light);color:#065F46;">Ship</div><br/>v3.0 launch</div>
+              </div>
+            </div>
+          </div>
+          <span class="roadmap-status live" style="margin-top:12px;display:inline-flex;">● Live</span>
+        </div>
+        <div class="roadmap-card live-card">
+          <div class="roadmap-card-icon" style="background:var(--emerald-light);">📊</div>
+          <span class="roadmap-tag" style="background:var(--emerald-light);color:var(--emerald);">Analytics</span>
+          <h3>Real-time team analytics</h3>
+          <p>Know exactly where your team stands. Velocity, cycle time, bottlenecks — no spreadsheets needed.</p>
+          <div class="bento-visual">
+            <div class="sparkline-row"><div class="sparkline-label">Velocity</div><div class="sparkline-bar-track"><div class="sparkline-bar-fill" style="width:82%;"></div></div><div class="sparkline-val">82%</div></div>
+            <div class="sparkline-row"><div class="sparkline-label">On-time</div><div class="sparkline-bar-track"><div class="sparkline-bar-fill" style="width:94%;background:var(--emerald);"></div></div><div class="sparkline-val">94%</div></div>
+            <div class="sparkline-row"><div class="sparkline-label">Cycle time</div><div class="sparkline-bar-track"><div class="sparkline-bar-fill" style="width:67%;background:var(--amber);"></div></div><div class="sparkline-val">67%</div></div>
+          </div>
+          <span class="roadmap-status live" style="margin-top:12px;display:inline-flex;">● Live</span>
+        </div>
+        <div class="roadmap-card live-card">
+          <div class="roadmap-card-icon" style="background:#FFF7ED;">🔗</div>
+          <span class="roadmap-tag" style="background:#FFF7ED;color:#C2410C;">Integrations</span>
+          <h3>Connect every tool you already use</h3>
+          <p>GitHub, Slack, Figma, Jira, Notion, Zapier, and 200+ more. Nexus lives at the center of your stack.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;">
+            <span style="background:var(--gray-100);border-radius:4px;padding:3px 8px;font-size:11px;font-weight:600;color:var(--gray-600);">GitHub</span>
+            <span style="background:var(--gray-100);border-radius:4px;padding:3px 8px;font-size:11px;font-weight:600;color:var(--gray-600);">Slack</span>
+            <span style="background:var(--gray-100);border-radius:4px;padding:3px 8px;font-size:11px;font-weight:600;color:var(--gray-600);">Figma</span>
+            <span style="background:var(--gray-100);border-radius:4px;padding:3px 8px;font-size:11px;font-weight:600;color:var(--gray-600);">Jira</span>
+            <span style="background:var(--gray-100);border-radius:4px;padding:3px 8px;font-size:11px;font-weight:600;color:var(--gray-600);">Notion</span>
+            <span style="background:var(--gray-100);border-radius:4px;padding:3px 8px;font-size:11px;font-weight:600;color:var(--gray-600);">+195 more</span>
+          </div>
+          <span class="roadmap-status live" style="margin-top:12px;display:inline-flex;">● Live</span>
+        </div>
+      </div>
+
+      <!-- ── Phase 2: In Progress ── -->
+      <div class="roadmap-phase fade-up">
+        <div class="roadmap-phase-pill progress">🔵 Next — In Progress</div>
+        <div class="roadmap-phase-line"></div>
+        <div class="roadmap-phase-date">Q3 2026</div>
+      </div>
+      <div class="roadmap-row fade-up">
+        <div class="roadmap-card progress-card">
+          <div class="roadmap-card-icon" style="background:#EFF6FF;">🤖</div>
+          <span class="roadmap-tag" style="background:#EFF6FF;color:var(--sky);">AI</span>
+          <h3>AI Copilot built right in</h3>
+          <p>Auto-summarize meetings, write task descriptions, estimate deadlines, and surface blockers before they slow you down.</p>
+          <span class="roadmap-status beta" style="margin-top:12px;display:inline-flex;">◐ Beta</span>
+        </div>
+        <div class="roadmap-card progress-card">
+          <div class="roadmap-card-icon" style="background:#FDF4FF;">⚡</div>
+          <span class="roadmap-tag" style="background:#FDF4FF;color:#7E22CE;">Automation</span>
+          <h3>No-code workflow automation</h3>
+          <p>Set triggers and actions without engineering help. Auto-assign, auto-notify, auto-archive — repetitive work disappears.</p>
+          <span class="roadmap-status beta" style="margin-top:12px;display:inline-flex;">◐ Beta</span>
+        </div>
+        <div class="roadmap-card progress-card">
+          <div class="roadmap-card-icon" style="background:var(--violet-light);">📱</div>
+          <span class="roadmap-tag" style="background:var(--violet-light);color:var(--violet);">Mobile</span>
+          <h3>Native iOS &amp; Android app</h3>
+          <p>Full-featured mobile experience. Review tasks, update statuses, and stay in sync from anywhere — even offline.</p>
+          <span class="roadmap-status beta" style="margin-top:12px;display:inline-flex;">◐ Beta</span>
+        </div>
+      </div>
+
+      <!-- ── Phase 3: Coming Soon ── -->
+      <div class="roadmap-phase fade-up">
+        <div class="roadmap-phase-pill soon">⭕ Later — Coming Soon</div>
+        <div class="roadmap-phase-line"></div>
+        <div class="roadmap-phase-date">Q4 2026+</div>
+      </div>
+      <div class="roadmap-row fade-up">
+        <div class="roadmap-card soon-card">
+          <div class="roadmap-card-icon" style="background:#F0FDF4;">🔒</div>
+          <span class="roadmap-tag" style="background:#F0FDF4;color:var(--emerald);">Security</span>
+          <h3>Enterprise security suite</h3>
+          <p>SOC 2 Type II enhanced, GDPR, data residency, SAML SSO 2.0, advanced audit logs, and role hierarchies.</p>
+          <span class="roadmap-status planned" style="margin-top:12px;display:inline-flex;">○ Planned</span>
+        </div>
+        <div class="roadmap-card soon-card">
+          <div class="roadmap-card-icon" style="background:#FEF9C3;">🧠</div>
+          <span class="roadmap-tag" style="background:#FEF9C3;color:#92400E;">AI v2</span>
+          <h3>Predictive sprint planning</h3>
+          <p>AI learns your team's velocity, flags risks before they happen, and suggests optimal sprint compositions automatically.</p>
+          <span class="roadmap-status planned" style="margin-top:12px;display:inline-flex;">○ Planned</span>
+        </div>
+        <div class="roadmap-card soon-card">
+          <div class="roadmap-card-icon" style="background:#F0F9FF;">🌐</div>
+          <span class="roadmap-tag" style="background:#F0F9FF;color:#0369A1;">API</span>
+          <h3>Public API v2 + webhooks</h3>
+          <p>Full REST &amp; GraphQL API, real-time webhooks, custom app embedding, and a marketplace for third-party extensions.</p>
+          <span class="roadmap-status planned" style="margin-top:12px;display:inline-flex;">○ Planned</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════ HOW IT WORKS ═══════ -->
+  <section class="section section-alt" id="how">
+    <div class="section-header fade-up">
+      <span class="eyebrow">✦ How it works</span>
+      <h2>Up and running in under 10 minutes</h2>
+      <p>No complex onboarding. No consultants. Just your team, your projects, and instant clarity.</p>
+    </div>
+    <div class="steps-cards">
+
+      <!-- Step 1 -->
+      <div class="step-card fade-up">
+        <div class="step-circle">1</div>
+        <h3>Create your workspace</h3>
+        <p>Sign up with your work email. Nexus auto-detects your team from your domain and suggests colleagues to invite. Import from Jira, Asana, or Trello in one click.</p>
+        <div class="step-card-visual">
+          <div style="background:var(--violet-light);border-radius:8px;padding:14px;font-size:12px;color:var(--violet-dark);">
+            <div style="font-weight:700;margin-bottom:6px;">🎉 Welcome to Nexus!</div>
+            <div style="color:var(--violet);font-size:12px;">We found 12 teammates at your company. Invite them?</div>
+            <div style="display:flex;gap:8px;margin-top:10px;">
+              <button class="btn btn-primary" style="padding:5px 12px;font-size:11px;border-radius:5px;" onclick="showToast('👥 Invitations sent!')">Invite all</button>
+              <button class="btn btn-outline" style="padding:5px 12px;font-size:11px;border-radius:5px;" onclick="showToast('📧 Choose manually')">Select</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step-card fade-up">
+        <div class="step-circle">2</div>
+        <h3>Set up your first project</h3>
+        <p>Choose a template — Scrum, Kanban, Roadmap, OKRs — or start blank. Add teammates, assign roles. Everything syncs in real-time.</p>
+        <div class="step-card-visual">
+          <div style="font-size:11px;font-weight:600;color:var(--gray-500);margin-bottom:8px;letter-spacing:.5px;text-transform:uppercase;">Choose a template</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+            <div style="border:1.5px solid var(--violet);border-radius:6px;padding:8px;font-size:11px;font-weight:600;color:var(--violet);cursor:pointer;text-align:center;" onclick="showToast('📋 Scrum template loaded!')">🏃 Scrum</div>
+            <div style="border:1px solid var(--gray-200);border-radius:6px;padding:8px;font-size:11px;font-weight:600;color:var(--gray-600);cursor:pointer;text-align:center;" onclick="showToast('📋 Kanban template loaded!')">📌 Kanban</div>
+            <div style="border:1px solid var(--gray-200);border-radius:6px;padding:8px;font-size:11px;font-weight:600;color:var(--gray-600);cursor:pointer;text-align:center;" onclick="showToast('🗺️ Roadmap template loaded!')">🗺️ Roadmap</div>
+            <div style="border:1px solid var(--gray-200);border-radius:6px;padding:8px;font-size:11px;font-weight:600;color:var(--gray-600);cursor:pointer;text-align:center;" onclick="showToast('🎯 OKRs template loaded!')">🎯 OKRs</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step-card fade-up">
+        <div class="step-circle">3</div>
+        <h3>Ship, measure, improve</h3>
+        <p>Track velocity, spot blockers early, and celebrate wins together. The more you use Nexus, the smarter its AI suggestions get.</p>
+        <div class="step-card-visual">
+          <div style="display:flex;gap:10px;">
+            <div style="flex:1;background:var(--emerald-light);border-radius:8px;padding:12px;text-align:center;">
+              <div style="font-size:26px;font-weight:900;color:var(--emerald);letter-spacing:-1px;">94%</div>
+              <div style="font-size:10px;color:var(--emerald);font-weight:600;">On-time rate</div>
+            </div>
+            <div style="flex:1;background:var(--violet-light);border-radius:8px;padding:12px;text-align:center;">
+              <div style="font-size:26px;font-weight:900;color:var(--violet);letter-spacing:-1px;">3x</div>
+              <div style="font-size:10px;color:var(--violet);font-weight:600;">Faster shipping</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════ TESTIMONIALS ═══════ -->
+  <section class="section" id="testimonials">
+    <div class="section-header fade-up">
+      <span class="eyebrow">❤️ Reviews</span>
+      <h2>Teams who switched never looked back</h2>
+      <p>4.9 stars from 3,200+ reviews on G2, Product Hunt, and X.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial fade-up">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-text">"We replaced Jira, Confluence, and Slack threads with Nexus. Our sprint planning meetings went from 2 hours to 20 minutes."</div>
+        <div class="test-author">
+          <div class="test-avatar" style="background:var(--violet);">SE</div>
+          <div><div class="test-name">Sarah Evans</div><div class="test-role">VP Engineering, Stripe</div></div>
+        </div>
+      </div>
+      <div class="testimonial fade-up">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-text">"The AI Copilot is genuinely useful, not just a gimmick. It caught a critical blocker before our PM did."</div>
+        <div class="test-author">
+          <div class="test-avatar" style="background:var(--emerald);">MK</div>
+          <div><div class="test-name">Marcus Kim</div><div class="test-role">Lead PM, Figma</div></div>
+        </div>
+      </div>
+      <div class="testimonial fade-up">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-text">"Finally a tool my developers AND my designers both actually open every morning. The kanban-to-timeline sync is magic."</div>
+        <div class="test-author">
+          <div class="test-avatar" style="background:var(--amber);">JC</div>
+          <div><div class="test-name">Julia Chen</div><div class="test-role">CTO, Vercel</div></div>
+        </div>
+      </div>
+      <div class="testimonial fade-up">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-text">"Onboarding our 300-person org took 3 days. With Asana it took 6 weeks. That alone was worth it."</div>
+        <div class="test-author">
+          <div class="test-avatar" style="background:var(--sky);">DA</div>
+          <div><div class="test-name">David Alves</div><div class="test-role">Head of Ops, Notion</div></div>
+        </div>
+      </div>
+      <div class="testimonial fade-up">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-text">"The reporting is the best I've seen in any PM tool. My board finally gets data that makes sense to them."</div>
+        <div class="test-author">
+          <div class="test-avatar" style="background:#E11D48);">RL</div>
+          <div><div class="test-name">Rachel Liu</div><div class="test-role">Director of Product, Linear</div></div>
+        </div>
+      </div>
+      <div class="testimonial fade-up">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-text">"Nexus's automation rules saved us 12 hours a week in manual task management. That's a full engineer's week per month."</div>
+        <div class="test-author">
+          <div class="test-avatar" style="background:#7E22CE;">TW</div>
+          <div><div class="test-name">Tom Walsh</div><div class="test-role">Engineering Manager, Loom</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ PRICING ═══════ -->
+  <section class="section section-alt" id="pricing">
+    <div class="section-header fade-up">
+      <span class="eyebrow">💳 Pricing</span>
+      <h2>Simple, transparent pricing</h2>
+      <p>Start free, scale when you're ready. No hidden fees, no surprise charges.</p>
+    </div>
+    <div class="pricing-toggle-wrap fade-up">
+      <span class="pricing-toggle-label">Monthly</span>
+      <button class="toggle" id="billingToggle" onclick="toggleBilling()" aria-label="Toggle billing">
+        <div class="toggle-knob"></div>
+      </button>
+      <span class="pricing-toggle-label">Yearly <span class="save-badge">Save 20%</span></span>
+    </div>
+    <div class="pricing-grid">
+      <!-- Starter -->
+      <div class="pricing-card fade-up">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price"><sup>$</sup><span class="price-num" data-monthly="0" data-yearly="0">0</span><span class="period"> / mo</span></div>
+        <div class="plan-desc">For individuals and small teams just getting started.</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Up to 5 members</li>
+          <li><span class="check">✓</span> 3 active projects</li>
+          <li><span class="check">✓</span> 2GB file storage</li>
+          <li><span class="check">✓</span> Kanban + List views</li>
+          <li><span class="check">✓</span> Basic reporting</li>
+          <li><span class="check">✓</span> Community support</li>
+        </ul>
+        <a href="#demo" class="btn btn-outline plan-cta">Get started free</a>
+      </div>
+      <!-- Standard (new) -->
+      <div class="pricing-card fade-up">
+        <div class="plan-name">Standard</div>
+        <div class="plan-price"><sup>$</sup><span class="price-num" data-monthly="7" data-yearly="6">7</span><span class="period"> / mo per seat</span></div>
+        <div class="plan-desc">For growing teams that need more projects and collaboration tools.</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Up to 20 members</li>
+          <li><span class="check">✓</span> 20 active projects</li>
+          <li><span class="check">✓</span> 10GB file storage</li>
+          <li><span class="check">✓</span> All views + Calendar</li>
+          <li><span class="check">✓</span> Guest access</li>
+          <li><span class="check">✓</span> Basic automations</li>
+          <li><span class="check">✓</span> Email support</li>
+        </ul>
+        <a href="#demo" class="btn btn-outline plan-cta">Start free trial</a>
+      </div>
+      <!-- Pro (most popular) -->
+      <div class="pricing-card popular fade-up">
+        <div class="popular-badge">Most popular</div>
+        <div class="plan-name">Pro</div>
+        <div class="plan-price"><sup>$</sup><span class="price-num" data-monthly="16" data-yearly="13">16</span><span class="period"> / mo per seat</span></div>
+        <div class="plan-desc">For scaling teams who need automation and advanced analytics.</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Unlimited members</li>
+          <li><span class="check">✓</span> Unlimited projects</li>
+          <li><span class="check">✓</span> 50GB file storage</li>
+          <li><span class="check">✓</span> All views + Timeline</li>
+          <li><span class="check">✓</span> AI Copilot</li>
+          <li><span class="check">✓</span> Workflow automation</li>
+          <li><span class="check">✓</span> Advanced analytics</li>
+          <li><span class="check">✓</span> Priority support</li>
+        </ul>
+        <a href="#demo" class="btn btn-primary plan-cta">Start free trial</a>
+      </div>
+      <!-- Enterprise (Custom) -->
+      <div class="pricing-card fade-up">
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-price" style="font-size:34px;letter-spacing:-1px;margin-top:6px;font-weight:900;">Custom</div>
+        <div class="plan-desc">For large organisations with security, compliance, and admin needs.</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Everything in Pro</li>
+          <li><span class="check">✓</span> SAML SSO / SCIM</li>
+          <li><span class="check">✓</span> Advanced audit logs</li>
+          <li><span class="check">✓</span> Custom data residency</li>
+          <li><span class="check">✓</span> SLA guarantee</li>
+          <li><span class="check">✓</span> Dedicated CSM</li>
+          <li><span class="check">✓</span> 99.99% uptime SLA</li>
+        </ul>
+        <button class="btn btn-outline plan-cta" onclick="showToast('📞 Our team will reach out shortly!')">Talk to sales</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ DEMO FORM ═══════ -->
+  <section class="section" id="demo">
+    <div class="section-header fade-up">
+      <span class="eyebrow">🚀 Get started</span>
+      <h2>Book a personalized demo</h2>
+      <p>See Nexus in action with your actual use case. 30 minutes, no sales pitch — just value.</p>
+    </div>
+    <div class="gform-wrap">
+      <div class="gform fade-up" id="demoFormCard">
+        <div class="gform-header">
+          <h2>⚡ Book your Nexus demo</h2>
+          <p>Nexus · Personalized product walkthrough · 30 min</p>
+        </div>
+        <div class="gform-required-note"><em>*</em> Required field</div>
+        <form id="demoForm" novalidate>
+          <div class="gform-body">
+            <div class="gform-q" data-req="true">
+              <label class="gform-label">Full name <span class="gform-req">*</span></label>
+              <input type="text" class="gf-input" placeholder="Alex Johnson" />
+              <div class="gf-error">This field is required.</div>
+            </div>
+            <div class="gform-q" data-req="true">
+              <label class="gform-label">Work email <span class="gform-req">*</span></label>
+              <input type="email" class="gf-input" placeholder="alex@company.com" />
+              <div class="gf-error">Please enter a valid work email.</div>
+            </div>
+            <div class="gform-q" data-req="true">
+              <label class="gform-label">Company name <span class="gform-req">*</span></label>
+              <input type="text" class="gf-input" placeholder="Acme Corp" />
+              <div class="gf-error">This field is required.</div>
+            </div>
+            <div class="gform-q" data-req="true">
+              <label class="gform-label">Team size <span class="gform-req">*</span></label>
+              <select class="gf-select">
+                <option value="">Select team size...</option>
+                <option>Just me</option>
+                <option>2–10 people</option>
+                <option>11–50 people</option>
+                <option>51–200 people</option>
+                <option>200+ people</option>
+              </select>
+              <div class="gf-error">Please select your team size.</div>
+            </div>
+            <div class="gform-q" data-req="true">
+              <label class="gform-label">Your role <span class="gform-req">*</span></label>
+              <div class="gf-radio-group">
+                <label class="gf-radio-item"><input type="radio" name="role" value="cxo" /> Executive (CEO, CTO, VP)</label>
+                <label class="gf-radio-item"><input type="radio" name="role" value="pm" /> Product / Project Manager</label>
+                <label class="gf-radio-item"><input type="radio" name="role" value="eng" /> Engineering Lead</label>
+                <label class="gf-radio-item"><input type="radio" name="role" value="ops" /> Operations / Scrum Master</label>
+                <label class="gf-radio-item"><input type="radio" name="role" value="other" /> Other</label>
+              </div>
+              <div class="gf-error">Please select your role.</div>
+            </div>
+            <div class="gform-q">
+              <label class="gform-label">What tools are you currently using?</label>
+              <div class="gf-check-group">
+                <label class="gf-check-item"><input type="checkbox" /> Jira / Confluence</label>
+                <label class="gf-check-item"><input type="checkbox" /> Asana</label>
+                <label class="gf-check-item"><input type="checkbox" /> Monday.com</label>
+                <label class="gf-check-item"><input type="checkbox" /> Notion</label>
+                <label class="gf-check-item"><input type="checkbox" /> Linear</label>
+                <label class="gf-check-item"><input type="checkbox" /> Spreadsheets (Excel/Sheets)</label>
+              </div>
+            </div>
+            <div class="gform-q">
+              <label class="gform-label">Preferred demo time</label>
+              <select class="gf-select">
+                <option value="">Select a slot...</option>
+                <option>Monday 9–10 AM ET</option>
+                <option>Tuesday 2–3 PM ET</option>
+                <option>Wednesday 11 AM–12 PM ET</option>
+                <option>Thursday 3–4 PM ET</option>
+                <option>Friday 10–11 AM ET</option>
+              </select>
+            </div>
+            <div class="gform-q">
+              <label class="gform-label">How satisfied are you with your current tools? (1 = very frustrated, 5 = happy)</label>
+              <div class="gf-scale">
+                <label class="gf-scale-item"><span>1</span><input type="radio" name="sat" value="1" /></label>
+                <label class="gf-scale-item"><span>2</span><input type="radio" name="sat" value="2" /></label>
+                <label class="gf-scale-item"><span>3</span><input type="radio" name="sat" value="3" /></label>
+                <label class="gf-scale-item"><span>4</span><input type="radio" name="sat" value="4" /></label>
+                <label class="gf-scale-item"><span>5</span><input type="radio" name="sat" value="5" /></label>
+              </div>
+              <div class="gf-scale-ends"><span>Very frustrated</span><span>Very happy</span></div>
+            </div>
+            <div class="gform-q">
+              <label class="gform-label">Anything specific you'd like to see in the demo?</label>
+              <textarea class="gf-textarea" placeholder="e.g. AI features, integrations with GitHub, reporting dashboards..."></textarea>
+            </div>
+          </div>
+          <div class="gform-footer">
+            <div style="display:flex;gap:8px;">
+              <button type="submit" class="btn-gsubmit">Book demo →</button>
+              <button type="button" class="btn-greset" onclick="clearForm('demoForm')">Clear form</button>
+            </div>
+            <p style="font-size:12px;color:var(--gray-400);">No spam. Unsubscribe any time.</p>
+          </div>
+        </form>
+        <div class="gform-success" id="demoSuccess">
+          <div class="success-ring">🎉</div>
+          <h3>You're booked!</h3>
+          <p>A calendar invite is on its way to your inbox.<br />We can't wait to show you what Nexus can do.</p>
+          <button class="btn-gsubmit" onclick="showAnotherDemo()" style="margin-top:12px;">Book another slot</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ NEWSLETTER FORM ═══════ -->
+  <section class="section section-alt" id="newsletter">
+    <div class="section-header fade-up">
+      <span class="eyebrow">📬 Newsletter</span>
+      <h2>Stay in the loop</h2>
+      <p>Weekly tips on async work, team velocity, and the future of collaboration. Join 28,000+ subscribers.</p>
+    </div>
+    <div class="gform-wrap">
+      <div class="gform fade-up" id="newsFormCard" style="box-shadow:0 2px 0 0 var(--emerald),var(--shadow-lg);">
+        <div class="gform-header" style="background:linear-gradient(135deg,var(--emerald),#0D9488);">
+          <h2>📬 The Async Edge</h2>
+          <p>Nexus weekly newsletter · 28,000+ subscribers</p>
+        </div>
+        <div class="gform-required-note"><em>*</em> Required field</div>
+        <form id="newsForm" novalidate>
+          <div class="gform-body">
+            <div class="gform-q" data-req="true">
+              <label class="gform-label">First name <span class="gform-req">*</span></label>
+              <input type="text" class="gf-input" placeholder="Alex" />
+              <div class="gf-error">Please enter your first name.</div>
+            </div>
+            <div class="gform-q" data-req="true">
+              <label class="gform-label">Email address <span class="gform-req">*</span></label>
+              <input type="email" class="gf-input" placeholder="alex@company.com" />
+              <div class="gf-error">Please enter a valid email.</div>
+            </div>
+            <div class="gform-q">
+              <label class="gform-label">What topics interest you most?</label>
+              <div class="gf-check-group">
+                <label class="gf-check-item"><input type="checkbox" /> Async work & remote teams</label>
+                <label class="gf-check-item"><input type="checkbox" /> AI & automation in PM</label>
+                <label class="gf-check-item"><input type="checkbox" /> Engineering velocity</label>
+                <label class="gf-check-item"><input type="checkbox" /> Leadership & culture</label>
+                <label class="gf-check-item"><input type="checkbox" /> Product strategy</label>
+              </div>
+            </div>
+            <div class="gform-q">
+              <label class="gform-label">How often would you like to hear from us?</label>
+              <div class="gf-radio-group">
+                <label class="gf-radio-item"><input type="radio" name="freq" /> Weekly digest (recommended)</label>
+                <label class="gf-radio-item"><input type="radio" name="freq" /> Monthly roundup</label>
+                <label class="gf-radio-item"><input type="radio" name="freq" /> Major announcements only</label>
+              </div>
+            </div>
+          </div>
+          <div class="gform-footer" style="background:white;">
+            <div style="display:flex;gap:8px;">
+              <button type="submit" class="btn-gsubmit" style="background:var(--emerald);">Subscribe →</button>
+              <button type="button" class="btn-greset" onclick="clearForm('newsForm')" style="color:var(--emerald);">Clear</button>
+            </div>
+            <p style="font-size:12px;color:var(--gray-400);">100% free · No spam · Unsubscribe in 1 click</p>
+          </div>
+        </form>
+        <div class="gform-success" id="newsSuccess">
+          <div class="success-ring">📬</div>
+          <h3>You're subscribed!</h3>
+          <p>Your first issue lands next Monday.<br />Check your inbox for a welcome gift.</p>
+          <button class="btn-gsubmit" onclick="showAnotherNews()" style="margin-top:12px;background:var(--emerald);">Subscribe another email</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ FAQ ═══════ -->
+  <section class="section" id="faq">
+    <div class="section-header fade-up">
+      <span class="eyebrow">❓ FAQ</span>
+      <h2>Questions? We've got answers.</h2>
+    </div>
+    <div class="faq-grid fade-up">
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">Is there a free plan? <span class="faq-icon-wrap">+</span></button>
+        <div class="faq-ans">Yes! Our Starter plan is free forever for up to 5 members and 3 projects. No credit card required to sign up. When you're ready to scale, upgrade to Pro or Enterprise at any time.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">How does the 14-day Pro trial work? <span class="faq-icon-wrap">+</span></button>
+        <div class="faq-ans">When you sign up you automatically get 14 days of Pro features — unlimited members, AI Copilot, automation, and advanced analytics. No credit card needed. After 14 days you choose a plan or stay on the free tier.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">Can I migrate from Jira, Asana, or Notion? <span class="faq-icon-wrap">+</span></button>
+        <div class="faq-ans">Absolutely. Nexus has one-click import from Jira, Asana, Trello, Monday.com, Linear, and Notion. Your projects, tasks, comments, and attachments migrate automatically. We also offer free white-glove migration for Enterprise customers.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">Is Nexus GDPR and SOC 2 compliant? <span class="faq-icon-wrap">+</span></button>
+        <div class="faq-ans">Yes. Nexus is SOC 2 Type II certified and fully GDPR compliant. All data is encrypted at rest (AES-256) and in transit (TLS 1.3). Enterprise customers can choose US, EU, or APAC data residency. Our full security whitepaper is available on request.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">What integrations does Nexus support? <span class="faq-icon-wrap">+</span></button>
+        <div class="faq-ans">Nexus integrates with 200+ tools including GitHub, GitLab, Slack, Microsoft Teams, Google Workspace, Figma, Zoom, Loom, Salesforce, HubSpot, Zapier, and Make. Our open API and webhooks let you connect anything not on the list.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">Do you offer discounts for startups or nonprofits? <span class="faq-icon-wrap">+</span></button>
+        <div class="faq-ans">Yes! We offer 50% off Pro for early-stage startups (under $1M ARR) and nonprofits. Students and educators get Pro free. Apply through our Startup & Education programs at nexus.io/programs.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ CTA BANNER ═══════ -->
+  <section class="cta-section">
+    <h2>Ready to ship faster?</h2>
+    <p>Join 50,000+ teams who transformed how they work with Nexus. Get started in minutes — free, no credit card.</p>
+    <div class="cta-actions">
+      <a href="#demo" class="btn btn-white-solid btn-xl">Start for free →</a>
+      <a href="#demo" class="btn btn-white-outline btn-xl">Book a demo</a>
+    </div>
+  </section>
+
+  <!-- ═══════ FOOTER ═══════ -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo" style="margin-bottom:14px;display:flex;">
+          <div class="logo-mark">
+            <svg viewBox="0 0 18 18" fill="none">
+              <path d="M9 2L14 5.5V12.5L9 16L4 12.5V5.5L9 2Z" fill="white" fill-opacity="0.9"/>
+              <circle cx="9" cy="9" r="2.5" fill="white"/>
+            </svg>
+          </div>
+          <span class="logo-name" style="color:white;">Nexus</span>
+        </a>
+        <p>The Work OS for high-performance teams. Plan smarter, ship faster, never lose context.</p>
+        <div class="socials">
+          <a href="https://x.com" target="_blank" rel="noopener" class="social-btn" title="Follow on X">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.736l7.73-8.835L1.254 2.25H8.08l4.26 5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://github.com" target="_blank" rel="noopener" class="social-btn" title="GitHub">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-btn" title="LinkedIn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="https://youtube.com" target="_blank" rel="noopener" class="social-btn" title="YouTube">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#features" onclick="return false;">Features</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#" onclick="showToast('📱 Mobile app coming to iOS & Android');return false;">Mobile app</a></li>
+          <li><a href="#" onclick="showToast('🔌 API docs opening...');return false;">API & integrations</a></li>
+          <li><a href="#" onclick="showToast('🗺️ Loading product roadmap...');return false;">Roadmap</a></li>
+          <li><a href="#" onclick="showToast('📋 Changelog loading...');return false;">Changelog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Solutions</h4>
+        <ul>
+          <li><a href="#" onclick="showToast('👷 Engineering teams →');return false;">Engineering teams</a></li>
+          <li><a href="#" onclick="showToast('📦 Product teams →');return false;">Product teams</a></li>
+          <li><a href="#" onclick="showToast('🎨 Design teams →');return false;">Design teams</a></li>
+          <li><a href="#" onclick="showToast('🏢 Enterprise →');return false;">Enterprise</a></li>
+          <li><a href="#" onclick="showToast('🚀 Startups →');return false;">Startups</a></li>
+          <li><a href="#" onclick="showToast('🎓 Education program →');return false;">Education</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#" onclick="showToast('📚 Opening documentation...');return false;">Documentation</a></li>
+          <li><a href="#" onclick="showToast('🎓 Loading Nexus Academy...');return false;">Nexus Academy</a></li>
+          <li><a href="#" onclick="showToast('📝 Opening blog...');return false;">Blog</a></li>
+          <li><a href="#" onclick="showToast('💬 Opening community...');return false;">Community</a></li>
+          <li><a href="#" onclick="showToast('🔁 Migration guides...');return false;">Migration guides</a></li>
+          <li><a href="#" onclick="showToast('📊 Status page: All systems ✅');return false;">Status page</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#" onclick="showToast('🏢 About Nexus...');return false;">About us</a></li>
+          <li><a href="#" onclick="showToast('💼 We\'re hiring! Careers page...');return false;">Careers <span style="background:var(--emerald);color:white;font-size:10px;padding:1px 5px;border-radius:3px;margin-left:4px;">Hiring</span></a></li>
+          <li><a href="#" onclick="showToast('📰 Press kit loading...');return false;">Press & media</a></li>
+          <li><a href="#" onclick="showToast('🤝 Partner program...');return false;">Partners</a></li>
+          <li><a href="#contact" onclick="showToast('📞 Contact page...');return false;">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Nexus Technologies, Inc. All rights reserved.</span>
+      <span style="display:flex;gap:20px;flex-wrap:wrap;">
+        <a href="#" onclick="showToast('📄 Privacy Policy...');return false;">Privacy Policy</a>
+        <a href="#" onclick="showToast('📄 Terms of Service...');return false;">Terms of Service</a>
+        <a href="#" onclick="showToast('🍪 Cookie preferences...');return false;">Cookie Settings</a>
+        <a href="#" onclick="showToast('♿ Accessibility statement...');return false;">Accessibility</a>
+      </span>
+      <span>Follow us on <a href="https://x.com" target="_blank" rel="noopener">X →</a></span>
+    </div>
+  </footer>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- ═══════ LOGIN MODAL ═══════ -->
+  <div class="modal-overlay" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal" id="modalBox">
+      <div class="modal-header">
+        <div>
+          <div class="modal-title" id="modalTitle">Welcome back</div>
+          <div class="modal-sub">Sign in to your Nexus workspace</div>
+        </div>
+        <button class="modal-close" id="modalCloseBtn" aria-label="Close login dialog">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-oauth">
+          <button class="modal-oauth-btn" type="button" onclick="showToast('🔗 Connecting with Google...')">
+            <svg width="15" height="15" viewBox="0 0 24 24" style="margin-right:5px;vertical-align:middle;" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+            Continue with Google
+          </button>
+          <button class="modal-oauth-btn" type="button" onclick="showToast('🔗 Connecting with GitHub...')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="margin-right:5px;vertical-align:middle;" aria-hidden="true"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            GitHub
+          </button>
+        </div>
+        <div class="modal-divider">or sign in with email</div>
+        <form id="loginForm" novalidate>
+          <div class="modal-field">
+            <label class="modal-label" for="loginEmail">Email address</label>
+            <input class="modal-input" type="email" id="loginEmail" placeholder="you@company.com" autocomplete="email" required />
+          </div>
+          <div class="modal-field">
+            <label class="modal-label" for="loginPassword">Password</label>
+            <input class="modal-input" type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" required />
+          </div>
+          <button type="submit" class="modal-submit">Sign in →</button>
+        </form>
+        <div class="modal-footer-text">
+          Don't have an account? <a href="#demo" id="modalSignupLink">Start free →</a>
+          &nbsp;·&nbsp; <a href="#" onclick="showToast('📧 Password reset link sent!');return false;">Forgot password?</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ─── SMOOTH SCROLL POLYFILL ───
+    // For browsers that don't support CSS scroll-behavior
+    function smoothScrollTo(target) {
+      var el = typeof target === 'string' ? document.querySelector(target) : target;
+      if (!el) return;
+      try {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch(e) {
+        el.scrollIntoView(true);
+      }
+    }
+
+    // ─── NAV SCROLL ───
+    var nav = document.getElementById('nav');
+    window.addEventListener('scroll', function() {
+      nav.classList.toggle('scrolled', window.scrollY > 8);
+    }, { passive: true });
+
+    // ─── BURGER ───
+    var burger = document.getElementById('burgerBtn');
+    var mobileNavEl = document.getElementById('mobileNav');
+
+    function openMobile() {
+      burger.classList.add('open');
+      mobileNavEl.classList.add('open');
+      burger.setAttribute('aria-expanded', 'true');
+      burger.setAttribute('aria-label', 'Close menu');
+      mobileNavEl.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMobile() {
+      burger.classList.remove('open');
+      mobileNavEl.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+      burger.setAttribute('aria-label', 'Open menu');
+      mobileNavEl.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    burger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (mobileNavEl.classList.contains('open')) { closeMobile(); } else { openMobile(); }
+    });
+    document.addEventListener('click', function(e) {
+      if (mobileNavEl.classList.contains('open') && !burger.contains(e.target) && !mobileNavEl.contains(e.target)) {
+        closeMobile();
+      }
+    });
+    // Close mobile nav when any link is clicked
+    mobileNavEl.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', function() { closeMobile(); });
+    });
+    // Mobile login button
+    document.getElementById('mobileLoginBtn').addEventListener('click', function() {
+      closeMobile();
+      openLogin();
+    });
+
+    // ─── LOGIN MODAL ───
+    var loginModal = document.getElementById('loginModal');
+    var modalBox   = document.getElementById('modalBox');
+
+    function openLogin() {
+      loginModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      setTimeout(function() {
+        var f = document.getElementById('loginEmail');
+        if (f) f.focus();
+      }, 80);
+    }
+    function closeLogin() {
+      loginModal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('loginBtn').addEventListener('click', openLogin);
+    document.getElementById('modalCloseBtn').addEventListener('click', closeLogin);
+    loginModal.addEventListener('click', function(e) {
+      if (e.target === loginModal) closeLogin();
+    });
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+      if ((e.key === 'Escape' || e.keyCode === 27) && loginModal.classList.contains('open')) {
+        closeLogin();
+      }
+    });
+    // Sign-up link inside modal closes modal and scrolls to demo
+    document.getElementById('modalSignupLink').addEventListener('click', function(e) {
+      e.preventDefault();
+      closeLogin();
+      smoothScrollTo('#demo');
+    });
+    // Login form submit (demo — shows success toast)
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var email = document.getElementById('loginEmail').value.trim();
+      var pass  = document.getElementById('loginPassword').value.trim();
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        document.getElementById('loginEmail').focus();
+        showToast('⚠️ Please enter a valid email address');
+        return;
+      }
+      if (!pass) {
+        document.getElementById('loginPassword').focus();
+        showToast('⚠️ Please enter your password');
+        return;
+      }
+      closeLogin();
+      showToast('✅ Signed in as ' + email + ' — welcome back!');
+    });
+
+    // ─── TOAST ───
+    var toastTimer;
+    function showToast(msg) {
+      var t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function() { t.classList.remove('show'); }, 3200);
+    }
+
+    // ─── BILLING TOGGLE ───
+    var yearly = false;
+    function toggleBilling() {
+      yearly = !yearly;
+      document.getElementById('billingToggle').classList.toggle('yearly', yearly);
+      document.querySelectorAll('.price-num').forEach(function(el) {
+        el.textContent = yearly ? el.dataset.yearly : el.dataset.monthly;
+      });
+      showToast(yearly ? '🎉 Yearly billing — 20% saved!' : '📅 Switched to monthly billing');
+    }
+
+    // ─── FAQ ───
+    function toggleFaq(btn) {
+      var item = btn.closest('.faq-item');
+      var open = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(i) { i.classList.remove('open'); });
+      if (!open) item.classList.add('open');
+    }
+
+    // ─── DASHBOARD ANIMATION ───
+    const chartData = [40, 65, 45, 80, 55, 90, 70, 95, 60, 85, 75, 100];
+    function buildChart() {
+      const wrap = document.getElementById('chartBars');
+      if (!wrap) return;
+      chartData.forEach((h, i) => {
+        const bar = document.createElement('div');
+        bar.className = 'chart-bar' + (i === chartData.length - 1 ? ' active' : '');
+        bar.style.height = h + '%';
+        bar.title = h + ' pts';
+        bar.addEventListener('click', () => showToast('📊 Sprint day ' + (i + 1) + ': ' + h + ' pts'));
+        wrap.appendChild(bar);
+      });
+    }
+    buildChart();
+
+    // ─── COUNTER ANIMATION ───
+    function animCount(el, target, dur = 1600) {
+      let start = null;
+      const step = ts => {
+        if (!start) start = ts;
+        const p = Math.min((ts - start) / dur, 1);
+        const ease = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(ease * target).toLocaleString('en-US');
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }
+
+    // ─── INTERSECTION OBSERVER ───
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('v');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+
+    // Counters in dashboard
+    const dashObs = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        animCount(document.getElementById('cnt1'), 142);
+        animCount(document.getElementById('cnt2'), 23);
+        animCount(document.getElementById('cnt3'), 87);
+        dashObs.disconnect();
+      }
+    }, { threshold: 0.3 });
+    const dframe = document.querySelector('.dashboard-frame');
+    if (dframe) dashObs.observe(dframe);
+
+    // ─── FORM VALIDATION ───
+    function validateForm(form) {
+      let valid = true;
+      form.querySelectorAll('.gform-q[data-req="true"]').forEach(q => {
+        const inp = q.querySelector('input[type="text"], input[type="email"], textarea, select');
+        const radios = q.querySelectorAll('input[type="radio"]');
+        q.classList.remove('err');
+        if (inp) {
+          const v = inp.value.trim();
+          if (!v || (inp.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))) {
+            q.classList.add('err'); valid = false;
+          }
+        } else if (radios.length && ![...radios].some(r => r.checked)) {
+          q.classList.add('err'); valid = false;
+        }
+      });
+      return valid;
+    }
+
+    function clearErrors(form) { form.querySelectorAll('.err').forEach(q => q.classList.remove('err')); }
+
+    function clearForm(id) {
+      const f = document.getElementById(id);
+      f.reset(); clearErrors(f);
+      showToast('🔄 Form cleared');
+    }
+
+    // Live clear on input
+    document.querySelectorAll('.gf-input, .gf-textarea, .gf-select').forEach(el => {
+      el.addEventListener('input', () => el.closest('.gform-q')?.classList.remove('err'));
+    });
+    document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(el => {
+      el.addEventListener('change', () => el.closest('.gform-q')?.classList.remove('err'));
+    });
+
+    // Demo form
+    document.getElementById('demoForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      clearErrors(this);
+      if (!validateForm(this)) {
+        showToast('⚠️ Please fill in all required fields');
+        this.querySelector('.err')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      this.style.display = 'none';
+      document.querySelector('#demoFormCard .gform-required-note').style.display = 'none';
+      document.getElementById('demoSuccess').style.display = 'flex';
+      showToast('🎉 Demo booked successfully!');
+    });
+
+    function showAnotherDemo() {
+      const f = document.getElementById('demoForm');
+      f.reset(); clearErrors(f);
+      f.style.display = 'block';
+      document.querySelector('#demoFormCard .gform-required-note').style.display = 'block';
+      document.getElementById('demoSuccess').style.display = 'none';
+    }
+
+    // Newsletter form
+    document.getElementById('newsForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      clearErrors(this);
+      if (!validateForm(this)) {
+        showToast('⚠️ Please fill in all required fields');
+        this.querySelector('.err')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      this.style.display = 'none';
+      document.querySelector('#newsFormCard .gform-required-note').style.display = 'none';
+      document.getElementById('newsSuccess').style.display = 'flex';
+      showToast('📬 Subscribed successfully!');
+    });
+
+    function showAnotherNews() {
+      const f = document.getElementById('newsForm');
+      f.reset(); clearErrors(f);
+      f.style.display = 'block';
+      document.querySelector('#newsFormCard .gform-required-note').style.display = 'block';
+      document.getElementById('newsSuccess').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
